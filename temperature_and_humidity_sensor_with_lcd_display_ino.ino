@@ -1,25 +1,29 @@
 #include <LiquidCrystal.h>
-#include <dht.h>
+#include <DHT.h>
 
-const int RS = D2, EN = D3, d4 = D5, d5 = D6, d6 = D7, d7 = D8;   
-LiquidCrystal lcd(RS, EN, d4, d5, d6, d7);
+LiquidCrystal lcd(0, 1, 2, 3, 4, 5);
 
-dht DHT;
 
-float tem = 0;
-float hum = 0;
 
-#define DHT11_PIN D1
+#define DHTPIN 6
 #define LDR_PIN A0
+#define DHTTYPE    DHT11
 
 char data = 0;
 int ldr_read = 0;
 
+DHT dht(DHTPIN, DHTTYPE);
+
+
+float tem = dht.readTemperature();
+float hum = dht.readHumidity();
+
 void setup()
 
 {
-  Serial.begin(9600);
+  Serial.begin(115200);
   lcd.begin(16, 2);
+  dht.begin();
   pinMode(LDR_PIN, INPUT);
   delay(1000);
 }
@@ -35,20 +39,14 @@ void loop()
   lcd.setCursor(4, 0);
   lcd.print(ldr_read);
 
-  int chk = DHT.read11(DHT11_PIN);
-  Serial.print("Temperature = ");
-  tem = DHT.temperature;
   lcd.setCursor(0, 1);
   lcd.print("Tem-");
   lcd.setCursor(4, 1);
   lcd.print(tem);
-  Serial.println(tem);
 
-  Serial.print("Humidity = ");
-  hum = DHT.humidity;
   lcd.setCursor(8, 1);
   lcd.print("Hum-");
   lcd.setCursor(12, 1);
   lcd.print(hum);
-  Serial.println(hum);  
+  delay(5000);
 }
