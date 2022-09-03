@@ -1,0 +1,21 @@
+This program is developed to gather the inputs from DHT11 sensor ( Temperature and Humidity) and LDR module ( Light intensity ).
+
+Components used:    1.ESP8266wifi Microcontroller
+                    2.DHT11 Temperature and Humidity sensor
+                    3.LDR module
+                    4.16*2 Character LiquidCrystal Display
+
+DHT 11 sensor's digital output was connected to the pin number 6 in ESP8266WiFi Board.
+LDR module's analog output was connected to the pin number A0 in ESP8266WiFi Board.
+
+Liquid Crystal Display was connected to the ESP8266WiFi using following pin numbers.
+LCD pin number      |     ESP8266 pin number
+        RS -------------------> 0
+        EN/E -----------------> 1
+        D4 -------------------> 2
+        D5--------------------> 3
+        D6--------------------> 4
+        D7--------------------> 5
+        D8--------------------> 6
+
+offline.ino file is offline implementation of the code to read values from the sensors without firebase connectivity and online.ino file is the code including firebase connectivity. you have to edit the Firebase host link, Firebase authentication code, Wifi SSID, Wifi password and data store paths before implementing this in your own equipment.
